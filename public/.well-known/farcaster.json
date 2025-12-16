@@ -7,9 +7,9 @@
   "miniapp": {
     "version": "1",
     "name": "Inkwell",
-    "homeUrl": "https://ink-well-theta.vercel.app/",
-    "iconUrl": "https://ink-well-theta.vercel.app/assets/icon.png",
-    "splashImageUrl": "https://ink-well-theta.vercel.app/assets/splash.png",
+    "homeUrl": "https://inkwellx.vercel.app/",
+    "iconUrl": "https://inkwellx.vercel.app/assets/icon.png",
+    "splashImageUrl": "https://inkwellx.vercel.app/assets/splash.png",
     "splashBackgroundColor": "#020617",
     "subtitle": "Victorian read\u2011later, reimagined",
     "description": "Tear clippings from the web into a leather\u2011bound journal\u2014daily marginalia prompts, tactile scraps, and fast recall.",
@@ -19,12 +19,12 @@
       "simple",
       "utility"
     ],
-    "heroImageUrl": "https://ink-well-theta.vercel.app/assets/hero.png",
+    "heroImageUrl": "https://inkwellx.vercel.app/assets/hero.png",
     "ogTitle": "Inkwell",
     "ogDescription": "Tear clippings from the web into a leather\u2011bound journal\u2014daily marginalia prompts, tactile scraps, and fast recall.",
-    "ogImageUrl": "https://ink-well-theta.vercel.app/assets/hero.png",
+    "ogImageUrl": "https://inkwellx.vercel.app/assets/hero.png",
     "screenshotUrls": [
-      "https://ink-well-theta.vercel.app/assets/hero.png"
+      "https://inkwellx.vercel.app/assets/hero.png"
     ],
     "noindex": true
   }
