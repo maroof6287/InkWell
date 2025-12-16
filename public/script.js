@@ -17,6 +17,12 @@ window.addEventListener("load", async () => {
   // (Required) SDK environment detection + ready
   const isMini = await sdk.isInMiniApp();
   await sdk.actions.ready();
+const isMini = await Promise.race([
+  sdk.isInMiniApp(),
+  new Promise((res) => setTimeout(() => res(false), 800))
+]);
+await sdk.actions.ready();
+document.getElementById("envPill").textContent = isMini ? "Mini App" : "Browser";
 
   $("#envPill").textContent = isMini ? "Mini App" : "Browser";
   document.documentElement.dataset.env = isMini ? "mini" : "web";
