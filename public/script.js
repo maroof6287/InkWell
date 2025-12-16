@@ -1,5 +1,3 @@
-import { sdk } from "https://esm.sh/@farcaster/miniapp-sdk";
-import { Attribution } from "https://esm.sh/ox/erc8021";
 import { $, $all, toast, haptic, formatDateStamp, animateScrap } from "./Inkwell-ui.js";
 
 const APP = "Inkwell";
@@ -14,22 +12,14 @@ const BASE_MAINNET = "0x2105";
 const BASE_SEPOLIA = "0x14a34";
 
 window.addEventListener("load", async () => {
-  try { await sdk.actions.ready(); } catch (e) {}
-// ---------- Mini App detect (safe, no hang) ----------
-  let isMini = false;
-
+  // ---- Base Mini App requirement: ready() (no env detect, no UI label) ----
   try {
-    isMini = await Promise.race([
-      new Promise((res) => setTimeout(() => res(false), 800)),
-    ]);
+    const { sdk } = await import("https://esm.sh/@farcaster/miniapp-sdk");
+    try { await sdk.actions.ready(); } catch (e) {}
   } catch (e) {
-    isMini = false;
+    // If SDK fails to load, app still works as normal web app.
   }
 
-  // Always call ready (required), but don't let it crash the app if unavailable
-  try {
-  } catch (e) {}
-  if (envPill) envPill.textContent = isMini ? "Mini App" : "Browser";
   // ---------- Daily prompt ----------
   const prompts = [
     "Annotate the oddest metaphor you noticed today.",
@@ -189,7 +179,7 @@ window.addEventListener("load", async () => {
     }
 
     setState("preparing");
-    await preflightInkAnimation(parsed.display);
+    await preflightInkAnimation();
 
     try {
       setState("confirm");
@@ -320,6 +310,13 @@ async function sendUSDC(amountUnits, recipient) {
   const chainId = await ensureBaseChain(ethereum);
   const data = encodeERC20Transfer(recipient, amountUnits);
 
+  // Lazy-load Attribution so app doesn't die if CDN blocks at startup
+  let Attribution = null;
+  try {
+    ({ Attribution } = await import("https://esm.sh/ox/erc8021"));
+  } catch {
+    throw new Error("Attribution module failed to load. Try again.");
+  }
   const dataSuffix = Attribution.toDataSuffix({ codes: [BUILDER_CODE] });
 
   const params = [
